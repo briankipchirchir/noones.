@@ -7,7 +7,7 @@ function App() {
   const [mtcn, setMtcn] = useState('');
   const [error, setError] = useState('');
 
-  const validCodes = ['12345', '67890', '11111']; // Hardcoded MTCN codes
+  const validCodes = ['56789', '67890', '93509']; // Hardcoded MTCN codes
 
   const handleVerify = () => {
     if (validCodes.includes(mtcn.trim())) {
